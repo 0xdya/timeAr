@@ -1,4 +1,4 @@
-# TimeAr
+# [TimeAr](https://www.npmjs.com/package/time-ar)
 
 أدوات مصغّرة لـ **الوقت النسبي بالعربية** (مثل «منذ ساعتين»، «الآن»)   . استخدمها حين تحتاج نصوص "منذ متى" بالعربية الفصحى الحديثة، مع مفاتيح تنسيق مكتوبة بالأنواع لتحليل مدخلات التاريخ.
 
@@ -16,7 +16,7 @@ import timeAr from "time-ar";
 
 const time = timeAr();
 
-const text = time.getTimeAr("21-03-2026 14:30:00", t.format.fullDateTime);
+const text = time.getTimeAr("21-03-2026 14:30:00", time.format.fullDateTime);
 
 console.log(text)
 

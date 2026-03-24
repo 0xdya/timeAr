@@ -1,6 +1,6 @@
 {
   "name": "time-ar",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "أدوات مصغّرة لـ الوقت النسبي بالعربية (مثل «منذ ساعتين»، «الآن»).",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

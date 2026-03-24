@@ -11,7 +11,7 @@ import { format as _format, Format } from "./utils/dateTypes";
  * @example
  * ```ts
  * import timeAr from "time-ar";
- * const now = timeAr().getTimeAr(new Date(), timeAr().format.shortDate);
+ * const time = timeAr().getTimeAr(new Date(), timeAr().format.shortDate);
  * ```
  */
 const timeAr = () => {

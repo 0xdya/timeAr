@@ -1,5 +1,6 @@
 import { arFormat as _arFormat } from "./utils/timeArTranslate";
 import { format as _format, Format } from "./utils/dateTypes";
+import { setTimezone as _setTimezone } from "./utils/setTime";
 
 /**
  * timeAr توفر أدوات للتعامل مع الوقت والتواريخ باللغة العربية.
@@ -22,13 +23,30 @@ const timeAr = () => {
     format,
 
     /**
+     * ضبط التايمزون الافتراضي لجميع عمليات dayjs
+     *
+     * @param timezone اسم التايمزون (مثل "Africa/Cairo" أو "America/New_York")
+     * @throws خطأ إذا لم يكن التايمزون موجودًا
+     *
+     * @example
+     * ```ts
+     * import timeAr from "time-ar";
+     * const time = timeAr();
+     * time.setTimezone("Asia/Cairo");
+     * ```
+    */
+    setTimezone: (timezone : string): void => {
+      _setTimezone(timezone)
+    },
+
+    /**
      * تحويل التاريخ/الوقت إلى نص عربي بالتنسيق المطلوب
      *
      * @param time التاريخ المراد تنسيقه (Date أو string)
      * @param timeFormat التنسيق المطلوب (يفضل استخدام `timeAr().format`)
      * @returns نص التاريخ/الوقت المنسق بالعربية
      */
-    getTimeAr: (time: Date | string, timeFormat: keyof Format): string =>
+    getTimeAr: (time: Date | string, timeFormat: string): string =>
       _arFormat(time, timeFormat)
   };
 };

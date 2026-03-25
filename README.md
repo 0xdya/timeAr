@@ -33,6 +33,7 @@ console.log(text)
 |---------|------|-------|
 | `format` | `Property` | كائن يضمّ **أنماط تنسيق التاريخ والوقت** (قيم نصية ثابتة). استخدمها كمعامل ثانٍ لـ `getTimeAr` حتى تُفسَّر المدخلات النصية بشكل متسق. |
 | `getTimeAr` | `Function` | دالة تأخذ تاريخًا أو نصًا يمثل تاريخًا، مع تحديد تنسيق مدعوم من `format`، وتعيد نصًا عربيًا يصف الوقت النسبي مثل "الآن"، "منذ 5 دقائق"، أو "منذ يومين". |
+| `setTimezone` | `Function` | لي تغير ال `Timezone` المستخدم في حساب الوقت. |
 
 ### `getTimeAr(time, timeFormat)`
 
@@ -63,9 +64,6 @@ console.log(text)
 | `iso8601` | `YYYY-MM-DDTHH:mm:ssZ[Z]` | نصوص محلية شبيهة بـ ISO وفق النمط |
 | `time12h` | `hh:mm A` | `02:30 PM` |
 | `time12hSeconds` | `hh:mm:ss A` | `02:30:15 PM` |
-| `weekday` | `dddd` | `Saturday` |
-| `weekdayShort` | `ddd` | `Sat` |
-| `ordinalDay` | `Do` | `21st` |
 
 لاستخدام مفاتيح التنسيق في أنواعك الخاصة، اشتقّها من `format`
 

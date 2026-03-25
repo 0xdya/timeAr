@@ -1,8 +1,12 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import { getTimezone as _getTimezone } from './setTime';
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
 dayjs.extend(customParseFormat);
-
 
 type Unit = "year" | "month" | "day" | "hour" | "minute" | "second";
 
@@ -24,36 +28,54 @@ const arabicUnits: Record<Unit, [string, string, string, string]> = {
   second: ["ثانية", "ثانيتين", "ثوانٍ", "ثانية"]
 };
 
-export const arFormat = (dateInput: string | Date, dataFormat: string ): string => {
+export const arFormat = (dateInput: string | Date, dataFormat: string): string => {
+  const tz = _getTimezone();
+  const now = dayjs().tz(tz);
 
-      let custom_date;
+  let custom_date: Dayjs;
 
-      if (dateInput instanceof Date) {
-        custom_date = dayjs(dateInput);
-      } else {
-        custom_date = dayjs(dateInput, dataFormat);
-      }
+  if (dateInput instanceof Date) {
+    custom_date = dayjs(dateInput).tz(tz);
+  } else {
+    const isTimeOnly = /^\d{1,2}:\d{2}(:\d{2})?$/.test(dateInput);
 
-    if (!custom_date.isValid()) {
-        throw new Error(`Invalid Date: The provided date "${dateInput}" does not match the format "${dataFormat}".`);
+    if (isTimeOnly) {
+      const today = now.format("YYYY-MM-DD");
+
+      const parsedDate = dayjs(
+        `${today} ${dateInput}`,
+        `YYYY-MM-DD ${dataFormat}`,
+        true
+      );
+      
+      custom_date = parsedDate.tz(tz, true); 
+    } else {
+      const parsedDate = dayjs(dateInput, dataFormat, true);
+      custom_date = parsedDate.tz(tz, true);
     }
+  }
 
-    const date = new Date(custom_date.toDate());
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (!custom_date.isValid()) {
+    throw new Error(`Invalid Date: The provided date "${dateInput}" does not match the format "${dataFormat}".`);
+  }
 
-    if (seconds < 5) return "الآن";
+  const seconds = Math.abs(custom_date.diff(now, "second"));
 
-    for (const unit of Object.keys(intervals) as Unit[]) {
+  if (seconds < 5) return "الآن";
+
+  const prefix = custom_date.isAfter(now) ? "بعد" : "منذ";
+
+  for (const unit of Object.keys(intervals) as Unit[]) {
     const value = intervals[unit];
     const count = Math.floor(seconds / value);
 
     if (count >= 1) {
-        if (count === 1) return `منذ ${arabicUnits[unit][0]}`;
-        if (count === 2) return `منذ ${arabicUnits[unit][1]}`;
-        if (count <= 10) return `منذ ${count} ${arabicUnits[unit][2]}`;
-        return `منذ ${count} ${arabicUnits[unit][3]}`;
+      if (count === 1) return `${prefix} ${arabicUnits[unit][0]}`;
+      if (count === 2) return `${prefix} ${arabicUnits[unit][1]}`;
+      if (count <= 10) return `${prefix} ${count} ${arabicUnits[unit][2]}`;
+      return `${prefix} ${count} ${arabicUnits[unit][3]}`;
     }
-    }
+  }
 
-  return "منذ مدة";
+  return `${prefix} مدة`;
 };

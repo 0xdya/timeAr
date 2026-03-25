@@ -34,15 +34,6 @@ export interface Format {
 
   /** الوقت بنظام 12 ساعة مع الثواني (مثال: 02:30:15 PM) */
   time12hSeconds: "hh:mm:ss A";
-
-  /** اسم اليوم كاملاً (مثال: Saturday) */
-  weekday: "dddd";
-
-  /** اختصار اسم اليوم (مثال: Sat) */
-  weekdayShort: "ddd";
-
-  /** اليوم بالترتيب الرقمي (مثال: 21st) */
-  ordinalDay: "Do";
 }
 
 export const format: Format = {
@@ -57,7 +48,4 @@ export const format: Format = {
   iso8601: "YYYY-MM-DDTHH:mm:ssZ[Z]",
   time12h: "hh:mm A",
   time12hSeconds: "hh:mm:ss A",
-  weekday: "dddd",
-  weekdayShort: "ddd",
-  ordinalDay: "Do"
 };

@@ -73,4 +73,4 @@ console.log(text)
 
 ## الرخصة
 
-انظر ملف `LICENSE` في جذر الحزمة (إن كان مشمولاً عند النشر).
+انظر الى <a href="LICENSE">LICENSE</a>

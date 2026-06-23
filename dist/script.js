@@ -110,4 +110,4 @@ window.timeAr = { format: arFormat, init };
 timeAr.init();
 
 // التشغيل 
-  timeAr.init();
+  // timeAr.init();

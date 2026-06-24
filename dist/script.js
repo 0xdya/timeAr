@@ -107,5 +107,6 @@ function init() {
 }
 
 window.timeAr = { format: arFormat, init };
+
 // التشغيل 
-  // timeAr.init();
+  timeAr.init();

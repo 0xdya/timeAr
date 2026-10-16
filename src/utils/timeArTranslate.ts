@@ -62,6 +62,7 @@ export const arFormat = (dateInput: string | Date, dataFormat: string): string =
   }
 
   const seconds = Math.abs(custom_date.diff(now, "second"));
+  const days = Math.floor(seconds / intervals.day);
 
   if (seconds < 5) return "الآن";
 
@@ -70,6 +71,10 @@ export const arFormat = (dateInput: string | Date, dataFormat: string): string =
   for (const unit of Object.keys(intervals) as Unit[]) {
     const value = intervals[unit];
     const count = Math.floor(seconds / value);
+
+    if (unit === "week" && days !== 7 && days !== 14) {
+      continue;
+    }
 
     if (count >= 1) {
       if (count === 1) return `${prefix} ${arabicUnits[unit][0]}`;
